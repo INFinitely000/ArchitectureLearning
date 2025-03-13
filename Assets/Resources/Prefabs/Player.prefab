@@ -180,8 +180,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MaxSpeed>k__BackingField: 6.25
   <Acceleration>k__BackingField: 35
-  <JumpForce>k__BackingField: 7.5
-  <FeetRadius>k__BackingField: 0.25
+  <JumpForce>k__BackingField: 9.5
+  <FeetRadius>k__BackingField: 0.125
   <FeetMask>k__BackingField:
     serializedVersion: 2
     m_Bits: 55

@@ -11,7 +11,7 @@ namespace Service
 
         public float Horizontal => Input.GetAxisRaw(HorizontalAxis);
         public float Vertical => Input.GetAxisRaw(VerticalAxis);
-        public bool IsJump => Input.GetButtonDown(JumpButton);
+        public bool IsJump => Input.GetButton(JumpButton);
         public bool IsFire => Input.GetButtonDown(FireButton);
     }
 }
