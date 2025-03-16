@@ -1,7 +1,8 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
-namespace Console
+namespace RuntimeConsole
 {
     public class ConsoleUI : MonoBehaviour
     {
@@ -10,11 +11,11 @@ namespace Console
 
         private GUIContent _content;
         private GUIStyle _style;
-        
-        
+
+
         private void OnGUI()
         {
-            GUI.backgroundColor = new Color( 0f, 0f, 0f, 0.5f );
+            GUI.backgroundColor = new Color(0f, 0f, 0f, 0.5f);
 
             if (IsReturnKeyPressed())
                 Process();
@@ -26,27 +27,22 @@ namespace Console
                 OpenInputField();
 
             var messageRect = new Rect();
-            messageRect.height= 15;
             messageRect.x = 10;
-            
-            messageRect.y = Screen.height - 40 - Console.Messages.Count * messageRect.height;
-            
-            foreach(var message in Console.Messages)
+            messageRect.y = Screen.height - 25;
+
+            for (int index = Console.Messages.Count - 1; index > 0; index--)
             {
-                DrawMessage(message, messageRect);
-                
-                messageRect.y += messageRect.height;
+                _content.text = Console.Messages.ToArray()[index];
+
+                _style.CalcMinMaxWidth(_content, out float minWidth, out float maxWidth);
+
+                messageRect.width = minWidth + 10;
+                messageRect.height = (int)_style.CalcHeight(_content, minWidth);
+
+                messageRect.y -= messageRect.height;    
+            
+                GUI.Label(messageRect, _content, _style);
             }
-        }
-
-        private void DrawMessage(string message, Rect messageRect)
-        {
-            _content.text = message;
-            _style.CalcMinMaxWidth(_content, out float minWidth, out float maxWidth);
-
-            messageRect.width = maxWidth + 10;
-                
-            GUI.Label(messageRect, _content, _style);
         }
 
         private void OpenInputField()
@@ -114,7 +110,6 @@ namespace Console
             
             _style.fontSize = 12;
             _style.normal.textColor = Color.white;
-            _style.fixedHeight = 15f;
             _style.contentOffset = Vector2.right * 5;
             
             _style.normal.background = new Texture2D(1,1);

@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using Service;
-using Unity.VisualScripting;
 using UnityEngine;
 
-namespace Console
+namespace RuntimeConsole
 {
     public static class Console
     {
@@ -44,6 +42,8 @@ namespace Console
             else
                 ProcessMessage(expression);
         }
+
+        public static void Write(string text) => ProcessMessage(text);
 
         private static void ProcessCommand(string expression)
         {
@@ -82,17 +82,10 @@ namespace Console
             {
                 for (int index = 0; index < parts.Length; index++)
                 {
-                    if (parts[index].TryIdentifyType(out var type, out var value))
-                    {
-                        parameterTypes[index] = type;
-                        parameters[index] = value;
-                    }
-                    else
-                    {
-                        ProcessMessage("Unknown parameter: " + parts[index]);
-
-                        return false;
-                    }
+                    parts[index].IdentifyType(out var type, out var value);
+                    
+                    parameterTypes[index] = type;
+                    parameters[index] = value;
                 }
             }
 
@@ -110,14 +103,11 @@ namespace Console
         }
     
     
-        private static bool IsCommand(string command) => command.StartsWith('/');
+        private static bool IsCommand(string command) => 
+            command.StartsWith('/');
     
-        private static bool IsCommandValid(string command)
-        {
-            if (_commands.ContainsKey(command)) return false;
-
-            return _commandRegex.IsMatch(command);
-        }
+        private static bool IsCommandValid(string command) =>
+            _commandRegex.IsMatch(command);
         
         private static bool IsExpressionValid(string expression) =>
             expression != string.Empty;
@@ -159,14 +149,14 @@ namespace Console
                         .Select(p => p.ParameterType)
                         .ToArray();
 
-                    if (parameters.Any(p => p.IsClass || p.IsInterface))
+                    if (parameters.Any(p => (p.IsClass && p != typeof(string)) || p.IsInterface))
                     {
                         Debug.LogError("Method have a non-struct parameters: " + method);
                     
                         continue;
                     }
 
-                    var data = new CommandData(method, parameters);
+                    var data = new CommandData(attribute.Description, method, parameters);
                     
                     Register(attribute.Command, data);
                     
@@ -177,11 +167,5 @@ namespace Console
 
         private static void OnLogMessageRecieved(string condition, string stacktrace, LogType type) =>
             ProcessMessage(condition);
-
-        [Command("penisSize")]
-        public static void TestMessage(int size)
-        {
-            ProcessMessage("Mr.INF's penis size is: " + size.ToString());
-        }
     }
 }

@@ -13,7 +13,7 @@ public static class Extentions
         return Mathf.Abs(first) < Mathf.Abs(second) ? first : second;
     }
 
-    public static bool TryIdentifyType(this string text, out Type type, out object value)
+    public static void IdentifyType(this string text, out Type type, out object value)
     {
         type = null;
         value = null;
@@ -33,7 +33,10 @@ public static class Extentions
             value = boolValue;
             type = typeof(bool);
         }
-
-        return type != null;
+        else
+        {
+            value = text;
+            type = typeof(string);
+        }
     }
 }

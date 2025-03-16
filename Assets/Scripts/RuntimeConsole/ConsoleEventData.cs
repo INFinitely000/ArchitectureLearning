@@ -1,4 +1,4 @@
-namespace Console
+namespace RuntimeConsole
 {
     public struct ConsoleEventData
     {
