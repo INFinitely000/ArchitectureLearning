@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Text;
+using Gameplay.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,6 +10,12 @@ namespace RuntimeConsole
     {
         [Command("timescale", "Set a world time scale")]
         public static void SetTimeScale(float scale)
+        {
+            Time.timeScale = scale;
+        }
+        
+        [Command("timescale", "Set a world time scale")]
+        public static void SetTimeScale(int scale)
         {
             Time.timeScale = scale;
         }
@@ -45,6 +52,22 @@ namespace RuntimeConsole
             }
 
             Debug.Log(builder);
+        }
+
+        [Command("teleport", "Teleport main player to the coordinates")]
+        public static void Teleport(int x, int y, int z)
+        {
+            var player = Object.FindFirstObjectByType<Player>();
+
+            player.transform.position = new Vector3(x,y,z);
+        }
+
+        [Command("setplayerscale", "Set a main player's scale")]
+        public static void SetPlayerScale(float scale)
+        {
+            var player = Object.FindFirstObjectByType<Player>();
+
+            player.transform.localScale = Vector3.one * scale;
         }
     }
 }

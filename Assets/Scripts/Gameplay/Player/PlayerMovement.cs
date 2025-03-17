@@ -21,7 +21,7 @@ namespace Gameplay.Player
         public Rigidbody2D Rigidbody { get; private set; }
         public CircleCollider2D Collider { get; private set; }
 
-        public Vector2 FeetPosition => (Vector2)transform.position + Collider.offset + Vector2.down * Collider.radius;
+        public Vector2 FeetPosition => (Vector2)transform.position + transform.localScale.y * (Collider.offset + Vector2.down * Collider.radius);
         public bool IsGrounded { get; private set; }
 
         private IInputService _inputService;

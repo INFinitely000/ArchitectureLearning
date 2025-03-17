@@ -44,6 +44,12 @@ namespace RuntimeConsole
         }
 
         public static void Write(string text) => ProcessMessage(text);
+        
+        [Command("clear", "Clear console window")]
+        public static void Clear()
+        {
+            _messages.Clear();
+        }
 
         private static void ProcessCommand(string expression)
         {
@@ -91,6 +97,8 @@ namespace RuntimeConsole
 
             return true;
         }
+
+
 
         private static void ProcessMessage(string expression)
         {
