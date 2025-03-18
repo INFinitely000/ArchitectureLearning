@@ -18,8 +18,6 @@ namespace RuntimeConsole
 
         private void OnGUI()
         {
-            GUI.backgroundColor = new Color(0f, 0f, 0f, 0.5f);
-
             if (IsReturnKeyPressed())
                 Process();
 
@@ -33,40 +31,16 @@ namespace RuntimeConsole
             messageRect.x = 10;
             messageRect.y = Screen.height - 25;
 
-            // If user start writing in input field
-            if (_consoleInputText != string.Empty && _consoleInputText.StartsWith("/"))
-            {
-                var input = _consoleInputText.Remove(0, 1);
-                
-                var suggestedCommands = Console.Commands.Where(c => c.Key.StartsWith(input.Split(" ")[0])).ToArray();
-                
-                messageRect.y -= 5;
+            if (InputTextIsCommand())
+                DisplayHelpBar(ref messageRect);
 
-                foreach (var command in suggestedCommands)
-                {
-                    foreach (var variant in command.Value)
-                    {
-                        _content.text = "/" + command.Key;
+            DisplayMessages(ref messageRect);
+        }
 
-                        foreach (var parameter in variant.parameters)
-                            _content.text += " [" + parameter.Name + "]";
+        private bool InputTextIsCommand() => _consoleInputText != string.Empty && _consoleInputText.StartsWith("/");
 
-                        _content.text += " - " + variant.description;
-
-                        _style.CalcMinMaxWidth(_content, out float minWidth, out float maxWidth);
-
-                        messageRect.width = minWidth + 10;
-                        messageRect.height = (int)_style.CalcHeight(_content, minWidth);
-
-                        messageRect.y -= messageRect.height;    
-                
-                        GUI.Label(messageRect, _content, _style);
-                    }
-                }
-
-                messageRect.y -= 5;
-            }
-
+        private void DisplayMessages(ref Rect messageRect)
+        {
             for (int index = Console.Messages.Count - 1; index > 0; index--)
             {
                 _content.text = Console.Messages.ToArray()[index];
@@ -80,6 +54,39 @@ namespace RuntimeConsole
             
                 GUI.Label(messageRect, _content, _style);
             }
+        }
+
+        private void DisplayHelpBar(ref Rect messageRect)
+        {
+            var input = _consoleInputText.Remove(0, 1);
+                
+            var suggestedCommands = Console.Commands.Where(c => c.Key.StartsWith(input.Split(" ")[0])).ToArray();
+                
+            messageRect.y -= 5;
+
+            foreach (var command in suggestedCommands)
+            {
+                foreach (var variant in command.Value)
+                {
+                    _content.text = "/" + command.Key;
+
+                    foreach (var parameter in variant.parameters)
+                        _content.text += " [" + parameter.Name + "]";
+
+                    _content.text += " - " + variant.description;
+
+                    _style.CalcMinMaxWidth(_content, out float minWidth, out float maxWidth);
+
+                    messageRect.width = minWidth + 10;
+                    messageRect.height = (int)_style.CalcHeight(_content, minWidth);
+
+                    messageRect.y -= messageRect.height;    
+                
+                    GUI.Label(messageRect, _content, _style);
+                }
+            }
+
+            messageRect.y -= 5;
         }
 
         private void OpenInputField()
@@ -146,7 +153,7 @@ namespace RuntimeConsole
             _content = new GUIContent();
 
             _background = new Texture2D(1, 1);
-            _background.SetPixel(0,0, new Color(0f,0f,0f, 1f));
+            _background.SetPixel(0,0, new Color(0f,0f,0f, 0.5f));
             _background.Apply();
 
             _style.normal.background = _background;

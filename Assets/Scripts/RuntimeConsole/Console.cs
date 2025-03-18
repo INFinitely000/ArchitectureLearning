@@ -20,21 +20,6 @@ namespace RuntimeConsole
         private static readonly Regex _commandRegex = new Regex(@"^[a-zA-Z_]+$");
 
 
-        public static void Register(string command, CommandData data)
-        {
-            if (IsCommandValid(command) == false)
-                throw new ArgumentException(command);
-
-            if (_commands.TryGetValue(command, out var datas))
-            {
-                datas.Add(data);
-            }
-            else
-            {
-                _commands.Add(command, new List<CommandData>() { data });
-            }
-        }
-
         public static void Process(string expression)
         {
             if (IsCommand(expression))
@@ -51,11 +36,21 @@ namespace RuntimeConsole
             _messages.Clear();
         }
 
+        private static void Register(string command, CommandData data)
+        {
+            if (IsCommandValid(command) == false)
+                throw new ArgumentException(command);
+            if (_commands.TryGetValue(command, out var datas))
+                datas.Add(data);
+            else
+                _commands.Add(command, new List<CommandData>() { data });
+
+
+        }
+        
         private static void ProcessCommand(string expression)
         {
-            var parts = expression.Remove(0, 1).Split(' ');
-            var command = parts[0];
-            var parameterValues = parts.Length > 1 ? parts[1..parts.Length] : Array.Empty<string>();
+            ParseExpressionToCommand(expression, out var command, out var parameterValues);
 
             TryIdentifyParameters(parameterValues, out var parameterTypes, out var parameters);
             
@@ -79,6 +74,13 @@ namespace RuntimeConsole
             }
         }
 
+        private static void ParseExpressionToCommand(string expression, out string command, out string[] parameterValues)
+        {
+            var expressionParts = expression.Remove(0, 1).Split(' ');
+            command = expressionParts[0];
+            parameterValues = expressionParts.Length > 1 ? expressionParts[1..expressionParts.Length] : Array.Empty<string>();
+        }
+
         private static bool TryIdentifyParameters(string[] parts, out Type[] parameterTypes, out object[] parameters)
         {
             parameterTypes = new Type[parts.Length];
@@ -97,9 +99,7 @@ namespace RuntimeConsole
 
             return true;
         }
-
-
-
+        
         private static void ProcessMessage(string expression)
         {
             if (IsExpressionValid(expression) == false) return;
@@ -109,8 +109,7 @@ namespace RuntimeConsole
             
             _messages.Enqueue(expression);
         }
-    
-    
+        
         private static bool IsCommand(string command) => 
             command.StartsWith('/');
     
