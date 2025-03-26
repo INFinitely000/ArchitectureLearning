@@ -1,3 +1,4 @@
+using Data;
 using GameState;
 using Service;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine;
 public class Bootstrap : MonoBehaviour, ICoroutineHandler
 {
     [field: SerializeField] public AssetData AssetData { get; private set; }
+    [field: SerializeField] public GameData GameData { get; private set; }
 
     private static Bootstrap _instance;
 
@@ -29,8 +31,9 @@ public class Bootstrap : MonoBehaviour, ICoroutineHandler
     private void RegisterServices()
     {
         _services = new Services();
+        _services.Register<IGameData>(GameData);
         _services.Register<IAssetData>(AssetData);
-        _services.Register<IFactory>(new Factory(AssetData));
+        _services.Register<IGameFactory>(new GameFactory(AssetData));
         _services.Register<IInputService>(new StandaloneInputService());
         _services.Register<ISceneLoader>(new SceneLoader(this));
     }

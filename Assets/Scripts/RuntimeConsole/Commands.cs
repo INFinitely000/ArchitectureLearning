@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Text;
-using Gameplay.Player;
+using Gameplay.MainPlayer;
+using Service;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -68,6 +69,20 @@ namespace RuntimeConsole
             var player = Object.FindFirstObjectByType<Player>();
 
             player.transform.localScale = Vector3.one * scale;
+        }
+        
+        [Command("damage", "Damage a main player")]
+        public static void TakeDamage(int damage)
+        {
+            Services.Instance.Single<IGameFactory>().Player.Health.TakeDamage(damage);
+        }
+        
+        [Command("heal", "Heal a main player")]
+        public static void Heal()
+        {
+            var health = Services.Instance.Single<IGameFactory>().Player.Health;
+            
+            health.SetHealth( health.MaxHealth );
         }
     }
 }

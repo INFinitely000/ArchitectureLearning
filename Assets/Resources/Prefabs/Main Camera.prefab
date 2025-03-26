@@ -1,5 +1,52 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2332974151835555761
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1648412759173276913}
+  - component: {fileID: 1971352049391893850}
+  m_Layer: 0
+  m_Name: ShakeOnPlayerDamage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1648412759173276913
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2332974151835555761}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 90206704837988457}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1971352049391893850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2332974151835555761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a0cf2728e264f638b3be6a20eb0627f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <CameraShake>k__BackingField: {fileID: 1385788857880572743}
+  <Invensity>k__BackingField: 0.02
+  <Duration>k__BackingField: 0.1
 --- !u!1 &4898522067008494952
 GameObject:
   m_ObjectHideFlags: 0
@@ -13,6 +60,7 @@ GameObject:
   - component: {fileID: 5763860334984212641}
   - component: {fileID: 2791640050117352872}
   - component: {fileID: 1325348121714038861}
+  - component: {fileID: 1385788857880572743}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -32,7 +80,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1648412759173276913}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &4396729918103979781
@@ -152,3 +201,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Sensitivity>k__BackingField: 15
   <Offset>k__BackingField: {x: 0, y: 1, z: -10}
+--- !u!114 &1385788857880572743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4898522067008494952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 997d69cb5b344d59ab026386985fa6cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

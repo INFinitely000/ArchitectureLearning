@@ -1,5 +1,6 @@
-﻿using Gameplay;
-using Gameplay.Player;
+﻿using Data;
+using Gameplay;
+using Gameplay.MainPlayer;
 using Service;
 using UnityEngine;
 
@@ -23,10 +24,13 @@ namespace GameState
         {
             Debug.Log("Loaded SampleScene");
 
-            var player = stateMachine.services.Single<IFactory>().Create<Player>("Player");
-            var camera = stateMachine.services.Single<IFactory>().Create<PlayerCamera>("PlayerCamera");
+            var player = stateMachine.services.Single<IGameFactory>().CreatePlayer();
+            var camera = stateMachine.services.Single<IGameFactory>().CreatePlayerCamera();
 
             camera.SetPlayer(player);
+            
+            player.Health.SetHealth( stateMachine.services.Single<IGameData>().player.health );
+            player.Health.SetMaxHealth( stateMachine.services.Single<IGameData>().player.maxHealth );
             
             NextState();
         }
