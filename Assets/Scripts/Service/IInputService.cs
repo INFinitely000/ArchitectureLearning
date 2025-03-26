@@ -6,5 +6,6 @@ namespace Service
         public float Vertical { get; }
         public bool IsJump { get; }
         public bool IsFire { get; }
+        public bool IsSprint { get; }
     }
 }

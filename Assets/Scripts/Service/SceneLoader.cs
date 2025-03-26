@@ -20,7 +20,7 @@ namespace Service
         {
             if (_loadRoutine != null) coroutineHandler.StopCoroutine(_loadRoutine);
 
-            _loadRoutine = coroutineHandler.StartCoroutine(LoadAsync(name, callback));
+                _loadRoutine = coroutineHandler.StartCoroutine(LoadAsync(name, callback));
         }
 
         private IEnumerator LoadAsync(string name, Action callback = null)

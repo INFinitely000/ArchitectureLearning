@@ -9,6 +9,7 @@ namespace Gameplay.Player
     public class PlayerMovement : MonoBehaviour, IPlayerComponent
     {
         [field: SerializeField] public float MaxSpeed { get; private set; }
+        [field: SerializeField] public float MaxSprintSpeed { get; private set; }
         [field: SerializeField] public float Acceleration { get; private set; }
         [field: SerializeField] public float JumpForce { get; private set; }
         
@@ -20,7 +21,7 @@ namespace Gameplay.Player
         public Rigidbody2D Rigidbody { get; private set; }
         public CircleCollider2D Collider { get; private set; }
 
-        public Vector2 FeetPosition => (Vector2)transform.position + Collider.offset + Vector2.down * Collider.radius;
+        public Vector2 FeetPosition => (Vector2)transform.position + (Collider.offset + Vector2.down * Collider.radius) * transform.localScale.y;
         public bool IsGrounded { get; private set; }
 
         private IInputService _inputService;
@@ -43,7 +44,9 @@ namespace Gameplay.Player
 
             var velocity = Rigidbody.linearVelocity;
 
-            var targetHorizontalVelocity = Mathf.MoveTowards(velocity.x, MaxSpeed * _inputService.Horizontal,
+            var speed = _inputService.IsSprint ? MaxSprintSpeed : MaxSpeed;
+            
+            var targetHorizontalVelocity = Mathf.MoveTowards(velocity.x, speed * _inputService.Horizontal,
                 Acceleration * Time.fixedDeltaTime);
 
             velocity.x = targetHorizontalVelocity;

@@ -7,8 +7,8 @@ namespace Service
     [CreateAssetMenu(fileName = "AssetData", menuName = "Data/AsseData")]
     public class AssetData : ScriptableObject, IAssetData
     {
-        [SerializeField] private SerializableDictionary<string, GameObject> _prefabs;
+        [SerializeField] private SerializableDictionary<string, Component> _prefabs;
 
-        public Dictionary<string, GameObject> Prefabs => _prefabs;
+        public Dictionary<string, Component> Prefabs => _prefabs;
     }
 }

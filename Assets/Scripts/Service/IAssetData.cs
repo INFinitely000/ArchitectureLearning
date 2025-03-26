@@ -5,6 +5,6 @@ namespace Service
 {
     public interface IAssetData : IService
     {
-        public Dictionary<string, GameObject> Prefabs { get; }
+        public Dictionary<string, Component> Prefabs { get; }
     }
 }

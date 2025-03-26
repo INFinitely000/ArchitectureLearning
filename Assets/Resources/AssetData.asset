@@ -15,10 +15,10 @@ MonoBehaviour:
   _prefabs:
     dictionaryList:
     - Key: Player
-      Value: {fileID: 7034711482688825287, guid: 22f661e32d5415846adeec1c903cb54a, type: 3}
+      Value: {fileID: 1022314498340885944, guid: 22f661e32d5415846adeec1c903cb54a, type: 3}
       index: 0
       isKeyDuplicated: 0
     - Key: PlayerCamera
-      Value: {fileID: 4898522067008494952, guid: f88a42dc33dff1e40b72698c4f68753d, type: 3}
+      Value: {fileID: 90206704837988457, guid: f88a42dc33dff1e40b72698c4f68753d, type: 3}
       index: 1
       isKeyDuplicated: 0
