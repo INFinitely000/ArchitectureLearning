@@ -10,6 +10,7 @@ namespace Gameplay.MainPlayer
         [field: SerializeField] public PlayerHealth Health { get; private set; }
         [field: SerializeField] public PlayerPresenter Presenter { get; private set; }
         [field: SerializeField] public PlayerBombThrower BombThrower { get; private set; }
+        [field: SerializeField] public PlayerHook Hook { get; private set; }
 
         private IInputService _inputService;
         
@@ -39,6 +40,29 @@ namespace Gameplay.MainPlayer
 
             if (_inputService.IsFire)
                 BombThrower.TryThrow();
+
+            if (_inputService.IsGrab && Hook.IsGrabbed == false)
+            {
+                var position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                var hits = Physics2D.CircleCastAll(position, 0.25f, Vector3.down, 0.25f);
+
+                Debug.Log("Trying: " + hits.Length);
+                
+                foreach (var hit in hits)
+                {
+                    if (hit.transform.TryGetComponent<IHookPoint>(out var point))
+                    {
+                        Hook.Grab(point);
+
+                        break;
+                    }
+                }
+            }
+            else if (_inputService.IsGrab == false && Hook.IsGrabbed)
+            {
+                Hook.Release();
+            }
         }
     }
 }

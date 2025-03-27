@@ -29,6 +29,8 @@ namespace Gameplay.MainPlayer
         [HideInInspector, NonSerialized] public float horizontal;
         [HideInInspector, NonSerialized] public bool isSprint;
         [HideInInspector, NonSerialized] public bool isJump;
+
+        private float _inAirVelocityMultiplier;
         
 
         protected virtual void Awake()
@@ -48,9 +50,16 @@ namespace Gameplay.MainPlayer
             var targetHorizontalVelocity = Mathf.MoveTowards(velocity.x, speed * horizontal,
                 Acceleration * Time.fixedDeltaTime);
 
+            targetHorizontalVelocity = Mathf.Lerp(velocity.x, targetHorizontalVelocity, _inAirVelocityMultiplier);
+
             velocity.x = targetHorizontalVelocity;
-            
+
             Rigidbody.linearVelocity = velocity;
+
+            if (IsGrounded) 
+                _inAirVelocityMultiplier = 1f;
+            else
+                _inAirVelocityMultiplier = Mathf.MoveTowards(_inAirVelocityMultiplier, 1f, Time.fixedDeltaTime);
         }
 
         protected virtual void Update()
@@ -62,5 +71,7 @@ namespace Gameplay.MainPlayer
         {
             if (IsGrounded) Rigidbody.linearVelocityY = JumpForce;
         }
+
+        public void ResetInAirVelocityMultiplier() => _inAirVelocityMultiplier = 0f;
     }
 }

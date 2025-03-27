@@ -76,5 +76,16 @@ namespace RuntimeConsole
             
             health.SetHealth( health.MaxHealth );
         }
+
+        [Command("summon", "Create a entity at mousePosition")]
+        public static void Summon(string entityName)
+        {
+            var position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            var createdEntity = Services.Instance.Single<IGameFactory>().Create<Transform>(entityName);
+
+            createdEntity.position = position;
+            createdEntity.rotation = Quaternion.identity;
+        }
     }
 }

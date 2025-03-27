@@ -26,6 +26,7 @@ namespace Gameplay.Enemy
             var velocity = Vector3.right * Speed * horizontal * Time.fixedDeltaTime;
                 velocity.y = Rigidbody.linearVelocityY;
 
+            Rigidbody.linearVelocity = velocity;
             Rigidbody.MovePosition(transform.position + velocity);
         }
     }
