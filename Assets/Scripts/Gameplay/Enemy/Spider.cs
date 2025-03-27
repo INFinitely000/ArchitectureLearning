@@ -8,6 +8,7 @@ namespace Gameplay.Enemy
     {
         [field: SerializeField] public SpiderMovement Movement { get; private set; }
         [field: SerializeField] public SpiderPresenter Presenter { get; private set; }
+        [field: SerializeField] public SpiderHealth Health { get; private set; }
         [field: Header("Ground Area")]
         [field: SerializeField] public Vector3 GroundAreaOffset { get; private set; }
         [field: SerializeField] public float GroundAreaRadius { get; private set; }

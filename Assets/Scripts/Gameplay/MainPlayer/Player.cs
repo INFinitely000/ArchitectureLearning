@@ -9,6 +9,7 @@ namespace Gameplay.MainPlayer
         [field: SerializeField] public PlayerMovement Movement { get; private set; }
         [field: SerializeField] public PlayerHealth Health { get; private set; }
         [field: SerializeField] public PlayerPresenter Presenter { get; private set; }
+        [field: SerializeField] public PlayerBombThrower BombThrower { get; private set; }
 
         private IInputService _inputService;
         
@@ -34,6 +35,10 @@ namespace Gameplay.MainPlayer
             Movement.horizontal = _inputService.Horizontal;
             Movement.isSprint = _inputService.IsSprint;
             Movement.isJump = _inputService.IsJump;
+            BombThrower.velocity = Camera.main.ScreenToWorldPoint((Vector2)Input.mousePosition) - transform.position;
+
+            if (_inputService.IsFire)
+                BombThrower.TryThrow();
         }
     }
 }

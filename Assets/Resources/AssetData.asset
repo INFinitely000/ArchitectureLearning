@@ -22,3 +22,7 @@ MonoBehaviour:
       Value: {fileID: 90206704837988457, guid: f88a42dc33dff1e40b72698c4f68753d, type: 3}
       index: 1
       isKeyDuplicated: 0
+    - Key: Bomb
+      Value: {fileID: 9217315869081718146, guid: 308ba538c9e350147aa89851c9db6672, type: 3}
+      index: 2
+      isKeyDuplicated: 0

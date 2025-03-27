@@ -62,14 +62,6 @@ namespace RuntimeConsole
 
             player.transform.position = new Vector3(x,y,z);
         }
-
-        [Command("setplayerscale", "Set a main player's scale")]
-        public static void SetPlayerScale(float scale)
-        {
-            var player = Object.FindFirstObjectByType<Player>();
-
-            player.transform.localScale = Vector3.one * scale;
-        }
         
         [Command("damage", "Damage a main player")]
         public static void TakeDamage(int damage)

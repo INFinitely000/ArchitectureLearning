@@ -1,4 +1,6 @@
 using Gameplay.MainPlayer;
+using Gameplay.Projectiles;
+using UnityEngine;
 
 namespace Service
 {
@@ -8,5 +10,7 @@ namespace Service
         PlayerCamera PlayerCamera { get; }
         Player CreatePlayer();
         PlayerCamera CreatePlayerCamera();
+
+        Bomb CreateBomb(Vector2 position, Vector2 velocity, float size = 1f);
     }
 }

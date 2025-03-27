@@ -5,13 +5,10 @@ using UnityEngine;
 
 namespace Gameplay.MainPlayer
 {
-    public class PlayerHealth : MonoBehaviour, IHealthable, IPlayerDamageable, IPlayerComponent
+    public class SpiderHealth : MonoBehaviour, IHealthable, IEnemyDamageable
     {
         [field: SerializeField] public float MaxTimeBetweenDamages { get; private set; }
-        
-        public Player Player { get; private set; }
-
-        public int MaxHealth { get; private set; }
+        [field: SerializeField] public int MaxHealth { get; private set; }
         
         public int Health
         {
@@ -35,12 +32,14 @@ namespace Gameplay.MainPlayer
         private int _health;
         private float _lastDamageTime;
         
-
-        public void SetPlayer(Player player) => Player = player;
-
         public void SetMaxHealth(int maxHealth) => MaxHealth = Mathf.Max(maxHealth, 1);
         
         public void SetHealth(int health) => Health = Mathf.Max(health, 1);
+
+        private void Start()
+        {
+            _health = MaxHealth;
+        }
 
         public void TakeDamage(int damage)
         {
@@ -60,7 +59,7 @@ namespace Gameplay.MainPlayer
 
         public void Kill()
         {
-            Destroy(Player.gameObject);
+            Destroy(gameObject);
         }
     }
 }

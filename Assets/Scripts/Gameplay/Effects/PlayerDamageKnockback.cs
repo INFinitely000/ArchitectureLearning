@@ -21,6 +21,8 @@ namespace Gameplay.MainPlayer
 
         private void OnHealthChanged(int difference)
         {
+            if (difference > 0) return;
+            
             Player.Movement.Rigidbody.linearVelocity = ImpulsePower;
         }
     }

@@ -2,7 +2,7 @@ using System;
 
 namespace Gameplay
 {
-    public interface IHealthable : IDamageable
+    public interface IHealthable
     {
         public int MaxHealth { get; }
         public int Health { get; }
