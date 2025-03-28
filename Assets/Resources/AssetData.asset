@@ -26,7 +26,3 @@ MonoBehaviour:
       Value: {fileID: 9217315869081718146, guid: 308ba538c9e350147aa89851c9db6672, type: 3}
       index: 2
       isKeyDuplicated: 0
-    - Key: Spider
-      Value: {fileID: 2354026134550832183, guid: 196efe2cd1d248c4fa159c119aee8841, type: 3}
-      index: 3
-      isKeyDuplicated: 0
