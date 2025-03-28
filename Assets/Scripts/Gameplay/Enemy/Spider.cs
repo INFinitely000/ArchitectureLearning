@@ -52,7 +52,7 @@ namespace Gameplay.Enemy
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.transform.TryGetComponent<IDamageable>(out var damageable))
+            if (other.transform.TryGetComponent<IPlayerDamageable>(out var damageable))
             {
                 damageable.TakeDamage(Damage);
                 

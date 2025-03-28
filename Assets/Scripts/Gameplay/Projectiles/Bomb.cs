@@ -49,18 +49,18 @@ namespace Gameplay.Projectiles
             var hits = Physics2D.CircleCastAll(transform.position, ExplodeRadius, Vector3.down, ExplodeRadius);
 
             foreach (var hit in hits)
-            {
+            { 
+                var multiplier = Mathf.Max((ExplodeRadius - Vector3.Distance(hit.transform.position, transform.position)) / ExplodeRadius, 0f);
                 if (hit.transform.TryGetComponent<Rigidbody2D>(out var rigidbody))
                 {
                     var direction = (hit.transform.position - transform.position).normalized;
-                    var multiplier = Mathf.Max((ExplodeRadius - Vector3.Distance(hit.transform.position, transform.position)) / ExplodeRadius, 0f);
                     
                     rigidbody.AddForce(direction * ExplodeForce * multiplier);
                 }
                 
                 if (hit.transform.TryGetComponent<IEnemyDamageable>(out var damageable))
-                    damageable.TakeDamage(ExplodeDamage);
-            }
+                    damageable.TakeDamage(Mathf.RoundToInt(ExplodeDamage * multiplier));
+            }   
 
             Exploded?.Invoke(this);
             
