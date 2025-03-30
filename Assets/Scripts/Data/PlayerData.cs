@@ -7,7 +7,5 @@ namespace Data
     {
         public int health;
         public int maxHealth;
-        
-        public int damage;
     }
 }

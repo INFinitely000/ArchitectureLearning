@@ -30,3 +30,7 @@ MonoBehaviour:
       Value: {fileID: 4786712531975524317, guid: 1e663b8c7923d0c4ca03ec48dfe04e59, type: 3}
       index: 3
       isKeyDuplicated: 0
+    - Key: Coin
+      Value: {fileID: 2946240537848403896, guid: a0cbcad4cbf350b4ebe0c6b94613d400, type: 3}
+      index: 4
+      isKeyDuplicated: 0

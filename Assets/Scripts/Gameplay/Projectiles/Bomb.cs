@@ -8,8 +8,8 @@ namespace Gameplay.Projectiles
 {
     public class Bomb : Projectile
     {
-        private const float ConcatFactor = 1.25f;
-        private const float MaxSize = 2f;
+        private const float ConcatFactor = 0.125f;
+        private const float MaxSize = 1.75f;
         
         [field: SerializeField, Min(0f)] public float Duration { get; private set; }
         [field: SerializeField, Min(0f)] public float ExplodeRadius { get; private set; }
@@ -75,7 +75,10 @@ namespace Gameplay.Projectiles
             
             if (other.transform.TryGetComponent<Bomb>(out var anotherBomb))
             {
-                var size = Mathf.Min((Size + anotherBomb.Size) / 2f * ConcatFactor, MaxSize);
+                var minSize = Mathf.Min(Size, anotherBomb.Size);
+                var maxSize = Mathf.Max(Size, anotherBomb.Size);
+                
+                var size = Mathf.Min(minSize * ConcatFactor + maxSize, MaxSize);
                 var position = (transform.position + anotherBomb.transform.position) / 2f;
                 var velocity = (Rigidbody.linearVelocity + anotherBomb.Rigidbody.linearVelocity) / 2f;
 

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dc791d2f87344fa817f3dd4d4f45598, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
-  <player>k__BackingField:
+  <Player>k__BackingField:
     health: 10
     maxHealth: 10
-    damage: 10
+  <Wallet>k__BackingField:
+    coins: 0

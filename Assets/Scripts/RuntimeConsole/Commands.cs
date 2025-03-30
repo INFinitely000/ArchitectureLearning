@@ -88,5 +88,17 @@ namespace RuntimeConsole
                 prefab.transform.rotation = Quaternion.identity;
             }
         }
+
+        [Command("bombparty", "Create a massive bomb attack")]
+        public static void BombParty()
+        {
+            var position = (Vector2)Object.FindFirstObjectByType<Player>().transform.position;
+            position.y += 20f;
+
+            for (int index = 0; index < 30; index++)
+            {
+                Services.Instance.Single<IGameFactory>().CreateBomb( position + Random.insideUnitCircle * 10f, Vector3.zero, Random.Range(1,3) );
+            }
+        }
     }
 }

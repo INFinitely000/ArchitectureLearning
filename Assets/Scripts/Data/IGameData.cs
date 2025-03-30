@@ -4,6 +4,7 @@ namespace Data
 {
     public interface IGameData : IService
     {
-        public PlayerData player { get; }
+        public PlayerData Player { get; }
+        public WalletData Wallet { get; }
     }
 }

@@ -33,6 +33,7 @@ public class Bootstrap : MonoBehaviour, ICoroutineHandler
         _services = new Services();
         _services.Register<IGameData>(GameData);
         _services.Register<IAssetData>(AssetData);
+        _services.Register<IWallet>(new Wallet(GameData.Wallet.coins, int.MaxValue));
         _services.Register<IGameFactory>(new GameFactory(AssetData));
         _services.Register<IInputService>(new StandaloneInputService());
         _services.Register<ISceneLoader>(new SceneLoader(this));

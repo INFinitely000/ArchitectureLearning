@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 5011548132402285979}
   - component: {fileID: 3892095259456811427}
   - component: {fileID: 7155528787493436140}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ForPlayerCollision
   m_TagString: Untagged
   m_Icon: {fileID: 0}

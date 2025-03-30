@@ -43,7 +43,7 @@ namespace Gameplay.MainPlayer
 
         public void TakeDamage(int damage)
         {
-            if (damage < 1) throw new ArgumentOutOfRangeException(nameof(damage));
+            if (damage < 0) throw new ArgumentOutOfRangeException(nameof(damage));
 
             if (Health < 1) return;
 

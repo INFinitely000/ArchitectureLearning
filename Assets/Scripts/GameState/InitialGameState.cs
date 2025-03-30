@@ -29,8 +29,8 @@ namespace GameState
 
             camera.SetPlayer(player);
             
-            player.Health.SetHealth( stateMachine.services.Single<IGameData>().player.health );
-            player.Health.SetMaxHealth( stateMachine.services.Single<IGameData>().player.maxHealth );
+            player.Health.SetHealth( stateMachine.services.Single<IGameData>().Player.health );
+            player.Health.SetMaxHealth( stateMachine.services.Single<IGameData>().Player.maxHealth );
             
             NextState();
         }
