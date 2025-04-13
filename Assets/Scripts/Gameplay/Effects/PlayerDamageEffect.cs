@@ -22,7 +22,7 @@ namespace Gameplay.MainPlayer
         {
             if (difference > 0) return;
 
-            InstantParticles.Play("Player Damage", Player.transform.position, Quaternion.identity);
+            InstantParticles.Play("Player Damage", Player.transform.position, 0f);
         }
     }
 }

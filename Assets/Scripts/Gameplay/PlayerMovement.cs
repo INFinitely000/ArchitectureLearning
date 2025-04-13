@@ -23,7 +23,7 @@ namespace Gameplay.MainPlayer
         public Vector2 FeetPosition => (Vector2)transform.position + (Collider.offset + Vector2.down * (Collider.size.y + Collider.edgeRadius)) * transform.localScale.y;
         public bool IsGrounded { get; private set; }
 
-        private IInputService _inputService;
+        private IInput _input;
         private RaycastHit2D _hit;
 
         [HideInInspector, NonSerialized] public float horizontal;

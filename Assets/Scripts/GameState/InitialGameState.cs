@@ -26,8 +26,12 @@ namespace GameState
 
             var player = stateMachine.services.Single<IGameFactory>().CreatePlayer();
             var camera = stateMachine.services.Single<IGameFactory>().CreatePlayerCamera();
+            var ui = stateMachine.services.Single<IGameFactory>().CreateUI();
 
             camera.SetPlayer(player);
+            player.Construct(stateMachine.services.Single<IInput>());
+            
+            ui.PlayerHealth.SetHealth(player.Health);
             
             player.Health.SetHealth( stateMachine.services.Single<IGameData>().Player.health );
             player.Health.SetMaxHealth( stateMachine.services.Single<IGameData>().Player.maxHealth );
@@ -35,11 +39,11 @@ namespace GameState
             NextState();
         }
 
-        private void NextState() => stateMachine.Entry<PlayGameState>();
+        private void NextState() => stateMachine.Entry<GameloopState>();
 
         public void Exit()
         {
-        
+
         }
     }
 }

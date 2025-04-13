@@ -11,31 +11,35 @@ public class Bootstrap : MonoBehaviour, ICoroutineHandler
 
     private static Bootstrap _instance;
 
-    private Services _services;
-    private GameStateMachine _stateMachine;
+    public Services Services { get; private set; }
+    public GameStateMachine StateMachine { get; private set; }
 
     private void Awake()
     {
         if (_instance)
+        {
             Destroy(gameObject);
+        }
+        else
+        {
+            _instance = this;
+            
+            RegisterServices();
+            StateMachine = new GameStateMachine(Services);
+            StateMachine.Entry<InitialGameState>();
 
-        _instance = this;
-
-        RegisterServices();
-        _stateMachine = new GameStateMachine(_services);
-        _stateMachine.Entry<InitialGameState>();
-
-        DontDestroyOnLoad(this);
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
     private void RegisterServices()
     {
-        _services = new Services();
-        _services.Register<IGameData>(GameData);
-        _services.Register<IAssetData>(AssetData);
-        _services.Register<IWallet>(new Wallet(GameData.Wallet.coins, int.MaxValue));
-        _services.Register<IGameFactory>(new GameFactory(AssetData));
-        _services.Register<IInputService>(new StandaloneInputService());
-        _services.Register<ISceneLoader>(new SceneLoader(this));
+        Services = new Services();
+        Services.Register<IGameData>(GameData);
+        Services.Register<IAssetData>(AssetData);
+        Services.Register<IWallet>(new Wallet(GameData.Wallet.coins, int.MaxValue));
+        Services.Register<IGameFactory>(new GameFactory(AssetData));
+        Services.Register<IInput>(new StandaloneInput());
+        Services.Register<ISceneLoader>(new SceneLoader(this));
     }
 }

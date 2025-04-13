@@ -15,7 +15,7 @@ namespace Gameplay
             {
                 Services.Instance.Single<IWallet>().TryPut(Cost);
                 
-                InstantParticles.Play("Coin Collected", transform.position, Quaternion.identity);
+                InstantParticles.Play("Coin Collected", transform.position, 0f);
                 
                 Destroy(gameObject);
             }

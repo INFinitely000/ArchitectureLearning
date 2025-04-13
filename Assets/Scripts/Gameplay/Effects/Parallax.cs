@@ -4,7 +4,7 @@ namespace Gameplay
 {
     public class Parallax : MonoBehaviour
     {
-        [field: SerializeField] public Transform Target { get; private set; }
+        [field: SerializeField] public virtual Transform Target { get; protected set; }
         [field: SerializeField] public SpriteRenderer Renderer { get; private set; }
     
         [field: SerializeField] public float Sensivitity { get; private set; }

@@ -25,12 +25,6 @@ namespace Service
 
         private IEnumerator LoadAsync(string name, Action callback = null)
         {
-            if (name == SceneManager.GetActiveScene().name)
-            {
-                callback?.Invoke();
-                yield break;
-            }
-
             var asyncOperation = SceneManager.LoadSceneAsync(name);
             yield return new WaitUntil(() => asyncOperation.isDone);
 

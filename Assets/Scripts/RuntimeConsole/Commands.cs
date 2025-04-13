@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Text;
 using Gameplay.MainPlayer;
+using GameState;
 using Service;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -24,7 +25,7 @@ namespace RuntimeConsole
         [Command("restart", "Reload a current scene")]
         public static void Reload()
         {
-            SceneManager.LoadScene( SceneManager.GetActiveScene().buildIndex );
+            Object.FindFirstObjectByType<Bootstrap>().StateMachine.Entry<InitialGameState>();
         }
 
         [Command("help", "Displays console commands and their descriptions")]

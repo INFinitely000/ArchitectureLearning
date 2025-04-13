@@ -30,6 +30,16 @@ namespace Service
             return createdObject;
         }
 
+        public TObject CreateEmpty<TObject>() where TObject : Component
+        {
+            var createdObject = new GameObject(typeof(TObject).Name).AddComponent<TObject>();
+
+            if (createdObject)
+                Created?.Invoke(createdObject, createdObject.GetType());
+            
+            return createdObject;
+        }
+        
         private TObject Create<TObject>(Component prefab) where TObject : Component
         {
             var createdObject = Object.Instantiate(prefab);

@@ -51,8 +51,10 @@ namespace Gameplay.MainPlayer
             if (Time.time - _lastDamageTime < MaxTimeBetweenDamages)
                 return;
             
-            Health -= damage;
+            Health -= Mathf.Min(damage, Health);
             _lastDamageTime = Time.time;
+            
+            Changed?.Invoke(damage);
             
             if (Health < 1)
                 Kill();

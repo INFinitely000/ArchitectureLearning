@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 429b6f27b75c1c148b307e45514a3b15
+guid: 25d9251ae7f50d64da188140c06da07c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 478776366029212125
-    second: Vine_0
+      213: 7647240639167449756
+    second: Leaf_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -72,9 +72,9 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 64
     resizeAlgorithm: 0
-    textureFormat: 4
+    textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -152,13 +152,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Vine_0
+      name: Leaf_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 12
-        width: 16
-        height: 24
+        x: 2
+        y: 3
+        width: 21
+        height: 18
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,8 +167,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: dd906087194f4a600800000000000000
-      internalID: 478776366029212125
+      spriteID: c9ac18138d4702a60800000000000000
+      internalID: 7647240639167449756
       vertices: []
       indices: 
       edges: []
@@ -187,7 +187,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Vine_0: 478776366029212125
+      Leaf_0: 7647240639167449756
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

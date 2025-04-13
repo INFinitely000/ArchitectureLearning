@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Service;
+using UnityEngine;
 
 namespace GameState
 {
@@ -17,6 +18,7 @@ namespace GameState
             this.services = services;
 
             _states.Add(typeof(InitialGameState), new InitialGameState(this));
+            _states.Add(typeof(GameloopState), new GameloopState(this));
         }
 
         public void Entry<TState>() where TState: IGameState
@@ -25,6 +27,8 @@ namespace GameState
 
             if (_states.TryGetValue(typeof(TState), out var state))
                 Entry(state);
+            else
+                Debug.LogError($"Not found GameState with type: {nameof(TState)}");
         }
 
         private void Entry(IGameState state)

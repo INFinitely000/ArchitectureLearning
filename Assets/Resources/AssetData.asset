@@ -34,3 +34,7 @@ MonoBehaviour:
       Value: {fileID: 2946240537848403896, guid: a0cbcad4cbf350b4ebe0c6b94613d400, type: 3}
       index: 4
       isKeyDuplicated: 0
+    - Key: GameUI
+      Value: {fileID: 4929112911782104965, guid: 55b0c860aa7696d48b3c0e984453cfd9, type: 3}
+      index: 5
+      isKeyDuplicated: 0

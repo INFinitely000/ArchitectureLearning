@@ -53,6 +53,8 @@ namespace Gameplay.MainPlayer
             Health -= damage;
             _lastDamageTime = Time.time;
             
+            Changed?.Invoke(damage);
+            
             if (Health < 1)
                 Kill();
         }

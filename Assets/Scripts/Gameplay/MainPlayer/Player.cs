@@ -11,18 +11,21 @@ namespace Gameplay.MainPlayer
         [field: SerializeField] public PlayerPresenter Presenter { get; private set; }
         [field: SerializeField] public PlayerBombThrower BombThrower { get; private set; }
 
-        private IInputService _inputService;
-        
+        private IInput _input;
+
+
+        public void Construct(IInput input)
+        {
+            _input = input;
+        }
 
         private void Awake()
         {
             Health.SetPlayer(this);
             Presenter.SetPlayer(this);
 
-            _inputService = Services.Instance.Single<IInputService>();
         }
-
-
+        
         private void FixedUpdate()
         {
             Presenter.horizontalSpeed = Mathf.Abs(Movement.Rigidbody.linearVelocityX);
@@ -32,12 +35,12 @@ namespace Gameplay.MainPlayer
 
         private void Update()
         {
-            Movement.horizontal = _inputService.Horizontal;
-            Movement.isSprint = _inputService.IsSprint;
-            Movement.isJump = _inputService.IsJump;
+            Movement.horizontal = _input.Horizontal;
+            Movement.isSprint = _input.IsSprint;
+            Movement.isJump = _input.IsJump;
             BombThrower.velocity = Camera.main.ScreenToWorldPoint((Vector2)Input.mousePosition) - transform.position;
 
-            if (_inputService.IsFire)
+            if (_input.IsFire)
                 BombThrower.TryThrow();
         }
     }

@@ -19,11 +19,13 @@ namespace Gameplay.Projectiles
         public float Size { get; private set; } = 1f;
 
         public static event Action<Bomb> Exploded;
+
+        private float _fuse;
         
         
         private void Start()
         {
-            StartCoroutine(Timer());
+            _fuse = Duration;
         }
 
         public void SetSize(float size)
@@ -37,11 +39,11 @@ namespace Gameplay.Projectiles
             Size = size;
         }
 
-        private IEnumerator Timer()
+        private void FixedUpdate()
         {
-            yield return new WaitForSeconds(Duration);
+            _fuse = Mathf.MoveTowards(_fuse, 0, Time.fixedDeltaTime);
 
-            Explode();
+            if (_fuse == 0) Explode();
         }
 
         private void Explode()
@@ -64,7 +66,7 @@ namespace Gameplay.Projectiles
 
             Exploded?.Invoke(this);
             
-            InstantParticles.Play("Bomb Explode", transform.position, Quaternion.identity);
+            InstantParticles.Play("Bomb Explode", transform.position, 0f);
             
             Destroy(gameObject);
         }
@@ -79,8 +81,8 @@ namespace Gameplay.Projectiles
                 var maxSize = Mathf.Max(Size, anotherBomb.Size);
                 
                 var size = Mathf.Min(minSize * ConcatFactor + maxSize, MaxSize);
-                var position = (transform.position + anotherBomb.transform.position) / 2f;
-                var velocity = (Rigidbody.linearVelocity + anotherBomb.Rigidbody.linearVelocity) / 2f;
+                var position = anotherBomb.Size >= Size ? anotherBomb.transform.position : transform.position;
+                var velocity = (anotherBomb.Size >= Size ? anotherBomb.Rigidbody.linearVelocity : Rigidbody.linearVelocity) + Vector2.up;
 
                 Destroy(gameObject);
                 Destroy(anotherBomb.gameObject);

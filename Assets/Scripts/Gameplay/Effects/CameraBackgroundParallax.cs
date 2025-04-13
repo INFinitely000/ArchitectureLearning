@@ -1,15 +1,11 @@
 using Gameplay.MainPlayer;
 using Service;
+using UnityEngine;
 
 namespace Gameplay
 {
     public class CameraBackgroundParallax : Parallax
     {
-        private void Awake()
-        {
-            var camera = Services.Instance.Single<IGameFactory>().PlayerCamera;
-            
-            SetTarget(camera.transform);
-        }
+        public override Transform Target => Camera.main.transform;
     }
 }

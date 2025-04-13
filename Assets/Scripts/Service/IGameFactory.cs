@@ -1,5 +1,6 @@
 using Gameplay.MainPlayer;
 using Gameplay.Projectiles;
+using Gameplay.UI;
 using UnityEngine;
 
 namespace Service
@@ -8,6 +9,7 @@ namespace Service
     {
         Player Player { get; }
         PlayerCamera PlayerCamera { get; }
+        GameUI CreateUI();
         Player CreatePlayer();
         PlayerCamera CreatePlayerCamera();
 

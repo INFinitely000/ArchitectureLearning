@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
 
 public class InstantParticles : MonoBehaviour
 {
@@ -13,12 +16,14 @@ public class InstantParticles : MonoBehaviour
     }
 
 
-    public static void Play(string name, Vector3 position, Quaternion rotation)
+    public static void Play(string name, Vector3 position, float rotation)
     {
         if (_particles.TryGetValue(name, out var particle))
         {
-            particle.transform.position = position;
-            particle.transform.rotation = rotation;
+            var shape = particle.shape;
+            
+            shape.position = position;
+            shape.rotation = Vector3.forward * rotation;
             
             particle.Play(true);
         }

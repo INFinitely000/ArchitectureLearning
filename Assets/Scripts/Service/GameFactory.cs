@@ -1,6 +1,7 @@
 using Data;
 using Gameplay.MainPlayer;
 using Gameplay.Projectiles;
+using Gameplay.UI;
 using UnityEngine;
 
 namespace Service
@@ -9,8 +10,10 @@ namespace Service
     {
         private const string PlayerAssetName = "Player";
         private const string PlayerCameraAssetName = "PlayerCamera";
+        private const string UIAssetName = "GameUI";
         private const string BombAssetName = "Bomb";
 
+        public GameUI UI { get; private set; }
         public Player Player { get; private set; }
         public PlayerCamera PlayerCamera { get; private set; }
 
@@ -30,6 +33,13 @@ namespace Service
             PlayerCamera = Create<PlayerCamera>(PlayerCameraAssetName);
 
             return PlayerCamera;
+        }
+
+        public GameUI CreateUI()
+        {
+            UI = Create<GameUI>(UIAssetName);
+
+            return UI;
         }
 
         public Bomb CreateBomb(Vector2 position, Vector2 velocity, float size = 1f)
