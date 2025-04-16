@@ -23,7 +23,6 @@ namespace Gameplay.MainPlayer
         {
             Health.SetPlayer(this);
             Presenter.SetPlayer(this);
-
         }
         
         private void FixedUpdate()
@@ -38,10 +37,28 @@ namespace Gameplay.MainPlayer
             Movement.horizontal = _input.Horizontal;
             Movement.isSprint = _input.IsSprint;
             Movement.isJump = _input.IsJump;
+            Movement.isDown = _input.IsDown;
             BombThrower.velocity = Camera.main.ScreenToWorldPoint((Vector2)Input.mousePosition) - transform.position;
 
             if (_input.IsFire)
                 BombThrower.TryThrow();
+        }
+
+        private void OnEnable()
+        {
+            Health.Changed += OnHealhChanged;
+        }
+
+        private void OnDisable()
+        {
+            Health.Changed -= OnHealhChanged;
+        }
+
+        private void OnHealhChanged(int difference)
+        {
+            if (difference >= 0) return;
+            
+            Presenter.OnTakedDamage();
         }
     }
 }

@@ -16,12 +16,17 @@ namespace Gameplay.MainPlayer
         [field: Header("Ground Detection")]
         [field: SerializeField] public float FeetRadius { get; private set; }
         [field: SerializeField] public LayerMask FeetMask { get; private set; }
+        
+        [field: Header("Water Physics")]
+        [field: SerializeField] public float SurfaceForce { get; private set; }
+        [field: SerializeField] public float DiveForce { get; private set; }
 
         public Rigidbody2D Rigidbody { get; private set; }
         public BoxCollider2D Collider { get; private set; }
 
         public Vector2 FeetPosition => (Vector2)transform.position + (Collider.offset + Vector2.down * (Collider.size.y + Collider.edgeRadius)) * transform.localScale.y;
         public bool IsGrounded { get; private set; }
+        public bool IsSwimming { get; private set; }
 
         private IInput _input;
         private RaycastHit2D _hit;
@@ -29,8 +34,9 @@ namespace Gameplay.MainPlayer
         [HideInInspector, NonSerialized] public float horizontal;
         [HideInInspector, NonSerialized] public bool isSprint;
         [HideInInspector, NonSerialized] public bool isJump;
+        [HideInInspector, NonSerialized] public bool isDown;
         
-
+        
         protected virtual void Awake()
         {
             Rigidbody = GetComponent<Rigidbody2D>();
@@ -39,8 +45,11 @@ namespace Gameplay.MainPlayer
 
         protected virtual void FixedUpdate()
         {
-            IsGrounded = Physics2D.OverlapCircle(FeetPosition, FeetRadius, FeetMask);
+            _hit = Physics2D.CircleCast(FeetPosition, FeetRadius, Vector2.down, FeetRadius, FeetMask);
 
+            IsGrounded = _hit.transform != null;
+            IsSwimming = _hit.transform?.GetComponent<Water>() != null;
+            
             var velocity = Rigidbody.linearVelocity;
 
             var speed = isSprint ? MaxSprintSpeed : MaxSpeed;
@@ -56,11 +65,17 @@ namespace Gameplay.MainPlayer
         protected virtual void Update()
         {
             if (isJump) TryJump();
+            if (isDown) TryDown();
         }
 
         protected virtual void TryJump()
         {
-            if (IsGrounded) Rigidbody.linearVelocityY = JumpForce;
+            if (IsGrounded) Rigidbody.linearVelocityY = IsSwimming ? SurfaceForce : JumpForce;
+        }
+
+        protected virtual void TryDown()
+        {
+            Rigidbody.linearVelocityY = IsSwimming ? -DiveForce : -JumpForce;
         }
     }
 }

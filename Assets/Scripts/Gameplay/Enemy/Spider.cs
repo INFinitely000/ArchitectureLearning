@@ -21,16 +21,18 @@ namespace Gameplay.Enemy
 
         public bool direction { get; private set; }
 
-        private void Awake()
-        {
+        private void Awake() => 
             Movement.horizontal = direction ? 1 : -1;
-        }
 
-        private void Update()
-        {
+        private void Update() => 
             Presenter.isFlip = direction;
-        }
 
+        private void OnEnable() =>
+            Health.Changed += OnHealthChanged;
+
+        private void OnDisable() =>
+            Health.Changed -= OnHealthChanged;
+        
         private void FixedUpdate()
         {
             var groundAreaOffset = GroundAreaOffset;
@@ -48,6 +50,13 @@ namespace Gameplay.Enemy
                 
                 Movement.horizontal = direction ? 1 : -1;
             }
+        }
+
+        private void OnHealthChanged(int difference)
+        {
+            if (difference >= 0) return;
+            
+            Presenter.OnTakedDamage();
         }
 
         private void OnCollisionEnter2D(Collision2D other)

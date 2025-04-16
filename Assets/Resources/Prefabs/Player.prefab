@@ -277,6 +277,8 @@ MonoBehaviour:
   <FeetMask>k__BackingField:
     serializedVersion: 2
     m_Bits: 65
+  <SurfaceForce>k__BackingField: 5
+  <DiveForce>k__BackingField: 5
 --- !u!61 &7122158633692328135
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -400,7 +402,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -3
   m_Sprite: {fileID: -2311659948842064771, guid: fd2f4cbe6c7f3a94e9f419dc0d58d9c2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
